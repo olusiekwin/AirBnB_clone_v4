@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ holds class User"""
+
 import models
 from models.base_model import BaseModel, Base
 from os import getenv
@@ -30,11 +31,7 @@ class User(BaseModel, Base):
         super().__init__(*args, **kwargs)
 
     def __setattr__(self, name, value):
-        """
-        Function Docs
-        """
+        """sets a password with md5 encryption"""
         if name == "password":
-            super(User, self).__setattr__(name,
-                                          md5(value.encode()).hexdigest())
-        else:
-            super(User, self).__setattr__(name, value)
+            value = md5(value.encode()).hexdigest()
+        super().__setattr__(name, value)
